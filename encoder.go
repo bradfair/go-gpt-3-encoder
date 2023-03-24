@@ -12,19 +12,18 @@ import (
 	"github.com/samber/lo"
 )
 
-//go:embed encoder.json
-//go:embed vocab.bpe
+//go:embed vocabs
 var files embed.FS
 
 var pat = regexp2.MustCompile(`/'s|'t|'re|'ve|'m|'ll|'d| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+/`, 0)
 
 func loadFiles() (bpeData []byte, encoder []byte, err error) {
-	bpeData, err = files.ReadFile("vocab.bpe")
+	bpeData, err = files.ReadFile("vocabs/gpt2/vocab.bpe")
 	if err != nil {
 		return
 	}
 
-	encoder, err = files.ReadFile("encoder.json")
+	encoder, err = files.ReadFile("vocabs/gpt2/encoder.json")
 	if err != nil {
 		return
 	}
